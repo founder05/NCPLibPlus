@@ -7,7 +7,7 @@ import org.bukkit.event.Event;
 
 public abstract class NPCEvent extends Event {
 
-    private  Player player;
+    private Player player;
     private NPCLib npc;
 
     public NPCEvent(Player player, NPCLib npc) {

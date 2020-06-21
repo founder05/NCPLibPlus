@@ -29,10 +29,10 @@ public enum NPCAnimation {
     /**
      * Displays fire on npc.
      */
-    ON_FIRE( 6),
+    ON_FIRE(6),
 
 
-    INVISIBLE( 32),
+    INVISIBLE(32),
 
     /**
      * Stops npc from crouching.

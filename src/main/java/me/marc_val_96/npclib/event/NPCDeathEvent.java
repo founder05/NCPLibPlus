@@ -8,17 +8,18 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 /**
  * Event called when a NPC dies.
- *
+ * <p>
  * Note: This event is called twice for living entities. Once for the LivingEntity with a damage source, once for the base entity without a source.
  */
 public class NPCDeathEvent extends NPCEvent implements Cancellable {
 
     private static final HandlerList handlerList = new HandlerList();
-    private boolean                       cancelled;
-    private final String                        damageSourceName;
+    private final String damageSourceName;
     private final EntityDamageEvent.DamageCause damageCause;
+    private boolean cancelled;
 
-    public NPCDeathEvent(NPC npc, String damageSourceName, EntityDamageEvent.DamageCause damageCause) {
+    public NPCDeathEvent(NPC npc, String damageSourceName,
+        EntityDamageEvent.DamageCause damageCause) {
         super(npc);
         this.damageSourceName = damageSourceName;
         this.damageCause = damageCause;
@@ -55,18 +56,15 @@ public class NPCDeathEvent extends NPCEvent implements Cancellable {
         return damageCause;
     }
 
-    @Override
-    public boolean isCancelled() {
+    @Override public boolean isCancelled() {
         return cancelled;
     }
 
-    @Override
-    public void setCancelled(boolean b) {
+    @Override public void setCancelled(boolean b) {
         cancelled = b;
     }
 
-    @Override
-    public HandlerList getHandlers() {
+    @Override public HandlerList getHandlers() {
         return handlerList;
     }
 }

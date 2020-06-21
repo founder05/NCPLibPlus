@@ -6,13 +6,19 @@ import me.marc_val_96.npclib.packetlistener.ProtocolLibListener;
 import me.marc_val_96.npclib.packetlistener.TinyProtocolListener;
 import me.marc_val_96.npclib.protocol.ProtocolNPC;
 import me.marc_val_96.npclib.skin.NPCSkin;
+import net.minecraft.server.v1_15_R1.EntityInsentient;
+import net.minecraft.server.v1_15_R1.EntityTypes;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 
 public class NPC extends JavaPlugin {
@@ -23,6 +29,7 @@ public class NPC extends JavaPlugin {
     private static Boolean cache = true;
 
     private static PacketListener packetListener = null;
+
 
     public static Plugin getPlugin() {
         return plugin;
@@ -61,12 +68,13 @@ public class NPC extends JavaPlugin {
         return list;
     }
 
+
     /**
      * Create a NPC
      *
      * @param plugin
      * @param location NPC Location
-     * @param skin     NPC skin ussing a playername
+     * @param skin     NPC skin using a playername
      */
 
     public static NPCLib createNPC(Plugin plugin, Location location, NPCSkin skin) {
@@ -77,7 +85,6 @@ public class NPC extends JavaPlugin {
         if (packetListener == null) {
             if (Bukkit.getPluginManager().getPlugin("ProtocolLib") != null) {
                 packetListener = new ProtocolLibListener();
-                Bukkit.getLogger().log(Level.INFO, ChatColor.YELLOW + "ok");
             } else {
                 packetListener = new TinyProtocolListener();
             }
@@ -112,4 +119,30 @@ public class NPC extends JavaPlugin {
         }
     }
 
+    public void registerEntity(String name, int id, Class<? extends EntityInsentient> nmsClass,
+        Class<? extends EntityInsentient> customClass) {
+        try {
+
+            List<Map<?, ?>> dataMap = new ArrayList<>();
+            for (Field f : EntityTypes.class.getDeclaredFields()) {
+                if (f.getType().getSimpleName().equals(Map.class.getSimpleName())) {
+                    f.setAccessible(true);
+                    dataMap.add((Map<?, ?>) f.get(null));
+                }
+            }
+
+            if (dataMap.get(2).containsKey(id)) {
+                dataMap.get(0).remove(name);
+                dataMap.get(2).remove(id);
+            }
+
+            Method method =
+                EntityTypes.class.getDeclaredMethod("a", Class.class, String.class, int.class);
+            method.setAccessible(true);
+            method.invoke(null, customClass, name, id);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

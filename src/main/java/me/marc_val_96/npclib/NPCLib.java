@@ -1,7 +1,7 @@
 package me.marc_val_96.npclib;
 
-import me.marc_val_96.npclib.enums.NPCAnimation;
 import me.marc_val_96.npclib.enums.EquipmentSlot;
+import me.marc_val_96.npclib.enums.NPCAnimation;
 import me.marc_val_96.npclib.skin.NPCSkin;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;

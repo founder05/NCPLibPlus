@@ -5,3 +5,6 @@ load: STARTUP
 softdepend: [ProtocolLib]
 authors: [Marc_val_96]
 description: NPC's For 1.15
+commands:
+  npclib:
+    description: Test the Lib
