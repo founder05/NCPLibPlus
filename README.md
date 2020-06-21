@@ -9,6 +9,6 @@ NPCSkin skin = NPCSkinBuilder.fromUUID(this.plugin, p.getUniqueId().toString());
 NPCSkin skin = NPCSkinBuilder.fromMineskin(this.plugin, 131234);
 
 //Now create the NPC ussing the skin
-NPC npc = NPCLib.createNPC(main.getPlugin(), p.getLocation(), skin);
+NPCLib npc = NPCManager.createNPC(main.getPlugin(), p.getLocation(), skin);
 ```
 
