@@ -1,0 +1,7 @@
+name: NPCLibPLus
+version: ${project.version}
+main: me.marc_val_96.npclib.NPC
+load: STARTUP
+softdepend: [ProtocolLib]
+authors: [Marc_val_96]
+description: NPC's For 1.15
